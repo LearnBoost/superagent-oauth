@@ -2,4 +2,4 @@
 0.1.0 / 2012-03-28
 ==================
 
- * Initial release
+  * Initial release
