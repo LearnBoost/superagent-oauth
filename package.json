@@ -1,6 +1,6 @@
 {
     "name": "superagent-oauth"
-  , "version": "0.1.0"
+  , "version": "0.1.1"
   , "main": "./superagent-oauth"
   , "description": "Tiny superagent plugin to easily sign requests with node-oauth."
   , "repository": { "type": "git", "url": "git://github.com/LearnBoost/superagent-oauth.git" }
