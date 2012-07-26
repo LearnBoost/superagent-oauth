@@ -25,7 +25,6 @@ module.exports = function (superagent) {
     this.oa = oa;
     this.token = token;
     this.secret = secret;
-    this.oaAccessField = opts.accessField || 'oauth_token';
     this.oaExtraParams = opts.extraParams || {}
     return this;
   };
@@ -62,7 +61,7 @@ module.exports = function (superagent) {
 
   Request.prototype.signOAuth2 = function () {
     var query = {};
-    query[this.oaAccessField] = this.token;
+    query[this.oa._accessTokenName] = this.token;
     this.query(query);
   };
 
