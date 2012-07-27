@@ -66,21 +66,37 @@ module.exports = function (superagent) {
   };
 
   /**
-   * Overrides .end to perform OAuth signature if needed.
+   * Overrides .end() to add the OAuth 1.0 "Authorization" header field.
    */
 
   var oldEnd = Request.prototype.end;
 
-  Request.prototype.end = function (fn) {
-    if (this.oa) {
-      if (this.oa._request) {
-        this.signOAuth2();
-      } else {
-        this.signOAuth();
-      }
+  Request.prototype.end = function () {
+    this.end = oldEnd;
+
+    if (this.oa && !this.oa._request) {
+      this.signOAuth();
     }
 
-    return oldEnd.call(this, fn);
+    return this.end.apply(this, arguments);
+  }
+
+  /**
+   * Overrides .request() to add the OAuth2 access token query param if needed.
+   * This cannot happen during .end() because the "query" params get processed
+   * before that here in the request() function.
+   */
+
+  var oldRequest = Request.prototype.request;
+
+  Request.prototype.request = function () {
+    this.request = oldRequest;
+
+    if (this.oa && this.oa._request) {
+      this.signOAuth2();
+    }
+
+    return this.request();
   };
 
 }
