@@ -42,7 +42,7 @@ module.exports = function (superagent) {
       , this.secret
       , this.method
       , this.url
-      , this.oaExtraParams
+      , this._data
     );
 
     var header = this.oa._isEcho
