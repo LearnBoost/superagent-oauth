@@ -12,7 +12,6 @@ module.exports = function (superagent) {
    *
    * Options:
    *  - accessField (`String`) defaults to `oauth_token`
-   *  - extraParams (`Object`) extra OAuth 1.0/1.0a parameters
    *
    * @param {OAuth|OAuth2} oa instance
    * @param {String} token
@@ -20,12 +19,11 @@ module.exports = function (superagent) {
    * @api public
    */
 
-  Request.prototype.sign = function (oa, token, secret, opts) {
+  Request.prototype.sign = function (oa, token, secret) {
     opts = opts || {}
     this.oa = oa;
     this.token = token;
     this.secret = secret;
-    this.oaExtraParams = opts.extraParams || {}
     return this;
   };
 

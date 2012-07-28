@@ -37,8 +37,6 @@ Request#sign(oauthManager, token, secret, options)
 - **oauthManager**: (`OAuth`) instance of the OAuth manager
 - **token**: (`String`) access token
 - **secret**: (`String`) access token secret
-- **options**: (`Object`) optional, options object
-  - extraParams (`Object`) extra OAuth 1.0/1.0a parameters (`{}`)
 
 #### OAuth2
 
@@ -46,10 +44,8 @@ Request#sign(oauthManager, token, secret, options)
 Request#sign(oauthManager, token, secret, options)
 ```
 
-- oauthManager: (`OAuth2`) instance of the OAuth2 manager
-- token: (`String`) access token
-- options: (`Object`) optional, options object
-  - accessField (`String`) name of the qs field (`oauth_token`)
+- **oauthManager**: (`OAuth2`) instance of the OAuth2 manager
+- **token**: (`String`) access token
 
 ## Credits
 
