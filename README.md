@@ -31,7 +31,7 @@ request.post('http://api.resource.org/users')
 #### OAuth 1.0/1.0a
 
 ```js
-Request#sign(oauthManager, token, secret, options)
+Request#sign(oauthManager, token, secret)
 ```
 
 - **oauthManager**: (`OAuth`) instance of the OAuth manager
@@ -41,7 +41,7 @@ Request#sign(oauthManager, token, secret, options)
 #### OAuth2
 
 ```js
-Request#sign(oauthManager, token, secret, options)
+Request#sign(oauthManager, token)
 ```
 
 - **oauthManager**: (`OAuth2`) instance of the OAuth2 manager
