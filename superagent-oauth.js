@@ -20,7 +20,6 @@ module.exports = function (superagent) {
    */
 
   Request.prototype.sign = function (oa, token, secret) {
-    opts = opts || {}
     this.oa = oa;
     this.token = token;
     this.secret = secret;
