@@ -12,7 +12,6 @@ module.exports = function (superagent) {
    *
    * Options:
    *  - accessField (`String`) defaults to `oauth_token`
-   *  - extraParams (`Object`) extra OAuth 1.0/1.0a parameters
    *
    * @param {OAuth|OAuth2} oa instance
    * @param {String} token
@@ -20,12 +19,11 @@ module.exports = function (superagent) {
    * @api public
    */
 
-  Request.prototype.sign = function (oa, token, secret, opts) {
+  Request.prototype.sign = function (oa, token, secret) {
     opts = opts || {}
     this.oa = oa;
     this.token = token;
     this.secret = secret;
-    this.oaExtraParams = opts.extraParams || {}
     return this;
   };
 
@@ -42,7 +40,7 @@ module.exports = function (superagent) {
       , this.secret
       , this.method
       , this.url
-      , this.oaExtraParams
+      , this._data
     );
 
     var header = this.oa._isEcho
@@ -66,21 +64,37 @@ module.exports = function (superagent) {
   };
 
   /**
-   * Overrides .end to perform OAuth signature if needed.
+   * Overrides .end() to add the OAuth 1.0 "Authorization" header field.
    */
 
   var oldEnd = Request.prototype.end;
 
-  Request.prototype.end = function (fn) {
-    if (this.oa) {
-      if (this.oa._request) {
-        this.signOAuth2();
-      } else {
-        this.signOAuth();
-      }
+  Request.prototype.end = function () {
+    this.end = oldEnd;
+
+    if (this.oa && !this.oa._request) {
+      this.signOAuth();
     }
 
-    return oldEnd.call(this, fn);
+    return this.end.apply(this, arguments);
+  }
+
+  /**
+   * Overrides .request() to add the OAuth2 access token query param if needed.
+   * This cannot happen during .end() because the "query" params get processed
+   * before that here in the request() function.
+   */
+
+  var oldRequest = Request.prototype.request;
+
+  Request.prototype.request = function () {
+    this.request = oldRequest;
+
+    if (this.oa && this.oa._request) {
+      this.signOAuth2();
+    }
+
+    return this.request();
   };
 
 }
