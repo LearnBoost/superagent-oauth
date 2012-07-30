@@ -12,7 +12,9 @@ to leverage the API flexibility of superagent instead of the
 
 ```js
 var oauth = new OAuth(…)
-  , request = require('superagent')
+  , request = require('superagent');
+
+require('superagent-oauth')(request);
 
 // once you get the access token and secret
 request.post('http://api.resource.org/users')
