@@ -1,10 +1,10 @@
 
 # superagent-oauth
 
-A handy [superagent](visionmedia/superagent) plugin to sign requests
+A handy [superagent](https://github.com/visionmedia/superagent) plugin to sign requests
 with an OAuth token and secret.
 
-Builds on top of [node-oauth](ciaranj/node-oauth), but it enables you
+Builds on top of [node-oauth](https://github.com/ciaranj/node-oauth), but it enables you
 to leverage the API flexibility of superagent instead of the 
 `.get`, `.getProtectedResource` and other methods `node-oauth` offers.
 
