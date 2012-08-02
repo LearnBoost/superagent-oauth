@@ -1,4 +1,9 @@
 
+0.2.2 / 2012-08-02
+==================
+
+  * Fix GET requests with query parameters for OAuth 1.0 [tootallnate]
+
 0.2.1 / 2012-07-30
 ==================
 
