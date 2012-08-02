@@ -39,7 +39,7 @@ module.exports = function (superagent) {
       , this.secret
       , this.method
       , this.url
-      , this._data
+      , this._data || this._query // XXX: what if there's query and body? merge?
     );
 
     var header = this.oa._isEcho
