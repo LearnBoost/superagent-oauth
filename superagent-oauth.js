@@ -8,6 +8,26 @@ module.exports = function (superagent) {
   var Request = superagent.Request;
 
   /**
+   * Override .query() to collect the query values.
+   * XXX: it would be nice if superagent offered an API for this...
+   *
+   * @api public
+   */
+
+  var oldQuery = Request.prototype.query;
+
+  Request.prototype.query = function (obj) {
+    if (!this._oauth_query) this._oauth_query = {};
+    // merge
+    var keys = Object.keys(obj), key;
+    for (var i = 0; i < keys.length; i++) {
+      key = keys[i];
+      this._oauth_query[key] = obj[keys];
+    }
+    return oldQuery.call(this, obj);
+  };
+
+  /**
    * Add sign method.
    *
    * Options:
@@ -39,7 +59,7 @@ module.exports = function (superagent) {
       , this.secret
       , this.method
       , this.url
-      , this._data || this._query // XXX: what if there's query and body? merge?
+      , this._data || this._oauth_query // XXX: what if there's query and body? merge?
     );
 
     var header = this.oa._isEcho
