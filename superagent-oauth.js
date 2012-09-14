@@ -22,7 +22,7 @@ module.exports = function (superagent) {
     var keys = Object.keys(obj), key;
     for (var i = 0; i < keys.length; i++) {
       key = keys[i];
-      this._oauth_query[key] = obj[keys];
+      this._oauth_query[key] = obj[key];
     }
     return oldQuery.call(this, obj);
   };
